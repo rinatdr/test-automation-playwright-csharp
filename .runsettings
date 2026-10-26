@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <Playwright>
+    <!-- chromium | firefox | webkit -->
+    <BrowserName>chromium</BrowserName>
+    <LaunchOptions>
+      <!-- false = show the browser window -->
+      <Headless>false</Headless>
+      <!-- delay (ms) between actions so you can follow the run; set 0 for full speed -->
+      <SlowMo>1000</SlowMo>
+    </LaunchOptions>
+  </Playwright>
+</RunSettings>
