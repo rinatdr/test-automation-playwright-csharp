@@ -112,21 +112,18 @@ public class CartTests : BaseTest
         await Expect(_cartPage.CartBadge).ToHaveTextAsync(products.Length.ToString());
     }
 
-    // KNOWN BUG: In a real system, checkout from an empty cart should be blocked
-    // (disabled button or validation message) and the user should stay on the cart page.
-    // Swag Labs lets the user continue to checkout step one, so this test asserts the
-    // current behavior. Once the bug is fixed, change it to expect the user to stay on /cart.html.
+    // KNOWN BUG: Swag Labs lets the user continue to checkout step one from an empty cart.
     [Test]
-    [Category("Negative"), Category("Edge")]
-    [Description("Checkout from an empty cart currently navigates to the checkout information page (known bug)")]
-    public async Task CheckoutWithEmptyCart_NavigatesToCheckoutInformationPage()
+    [Category("Negative"), Category("Edge"), Category("KnownBug")]
+    [Description("Checkout from an empty cart is blocked and the user stays on the cart page")]
+    public async Task CheckoutWithEmptyCart_StaysOnCartPage()
     {
         await _cartPage.GoToAsync();
         await Expect(_cartPage.ItemNames).ToHaveCountAsync(0);
 
         await _cartPage.CheckoutAsync();
 
-        await Expect(Page).ToHaveURLAsync(new Regex("/checkout-step-one\\.html$"));
+        await Expect(Page).ToHaveURLAsync(new Regex("/cart\\.html$"));
     }
 
     [Test]

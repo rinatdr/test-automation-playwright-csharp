@@ -69,11 +69,36 @@ public class CheckoutStepOneTests : BaseTest
     }
 
     [Test]
+    [Category("Negative")]
+    [Description("Closing the error message hides it")]
+    public async Task CloseError_HidesErrorMessage()
+    {
+        await _checkoutPage.ContinueAsync();
+        await Expect(_checkoutPage.ErrorMessage).ToBeVisibleAsync();
+
+        await _checkoutPage.CloseErrorAsync();
+
+        await Expect(_checkoutPage.ErrorMessage).ToBeHiddenAsync();
+    }
+
+    [Test]
     [Category("Positive")]
     [Description("Cancel returns to the cart page and keeps the cart contents")]
     public async Task Cancel_ReturnsToCartAndKeepsItems()
     {
         await _checkoutPage.CancelAsync();
+
+        await Expect(Page).ToHaveURLAsync(new Regex("/cart\\.html$"));
+        await Expect(_cartPage.ItemNames).ToHaveTextAsync([Products.Backpack.Name]);
+        await Expect(_cartPage.CartBadge).ToHaveTextAsync("1");
+    }
+
+    [Test]
+    [Category("Positive")]
+    [Description("Cart icon in the header opens the cart page and keeps the cart contents")]
+    public async Task CartIcon_OpensCartAndKeepsItems()
+    {
+        await _checkoutPage.OpenCartAsync();
 
         await Expect(Page).ToHaveURLAsync(new Regex("/cart\\.html$"));
         await Expect(_cartPage.ItemNames).ToHaveTextAsync([Products.Backpack.Name]);
