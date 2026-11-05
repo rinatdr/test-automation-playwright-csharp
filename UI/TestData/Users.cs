@@ -1,4 +1,4 @@
-namespace Swag_Labs.TestData;
+namespace TestAutomation.UI.TestData;
 
 public record User(string Username, string Password);
 

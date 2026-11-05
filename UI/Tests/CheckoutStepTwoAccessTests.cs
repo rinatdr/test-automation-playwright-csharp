@@ -1,9 +1,9 @@
 using System.Text.RegularExpressions;
-using Swag_Labs.Base;
-using Swag_Labs.Pages;
-using Swag_Labs.TestData;
+using TestAutomation.UI.Base;
+using TestAutomation.UI.Pages;
+using TestAutomation.UI.TestData;
 
-namespace Swag_Labs.Tests;
+namespace TestAutomation.UI.Tests;
 
 [Category("Checkout")]
 public class CheckoutStepTwoAccessTests : BaseTest

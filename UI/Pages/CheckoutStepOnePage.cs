@@ -1,6 +1,6 @@
 using Microsoft.Playwright;
 
-namespace Swag_Labs.Pages;
+namespace TestAutomation.UI.Pages;
 
 public class CheckoutStepOnePage(IPage page)
 {

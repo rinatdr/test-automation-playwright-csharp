@@ -1,7 +1,7 @@
 using Microsoft.Playwright;
-using Swag_Labs.TestData;
+using TestAutomation.UI.TestData;
 
-namespace Swag_Labs.Pages;
+namespace TestAutomation.UI.Pages;
 
 public class CheckoutStepTwoPage(IPage page)
 {

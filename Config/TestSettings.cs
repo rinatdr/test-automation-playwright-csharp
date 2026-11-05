@@ -1,17 +1,23 @@
 using System.Text.Json;
 
-namespace Swag_Labs.Config;
+namespace TestAutomation.Config;
+
+public record EnvironmentUrls(string Ui, string Api);
 
 public class TestSettings
 {
     public string DefaultEnvironment { get; init; } = "prod";
     public int DefaultTimeoutMs { get; init; } = 10000;
-    public Dictionary<string, string> Environments { get; init; } = [];
+    public Dictionary<string, EnvironmentUrls> Environments { get; init; } = [];
 
     public static TestSettings Current { get; } = Load();
 
+    public string UiBaseUrl => CurrentEnvironment.Ui;
+
+    public string ApiBaseUrl => CurrentEnvironment.Api;
+
     // Selected by the "env" runsettings parameter or the TEST_ENV environment variable; defaults to DefaultEnvironment.
-    public string BaseUrl
+    private EnvironmentUrls CurrentEnvironment
     {
         get
         {
@@ -19,8 +25,8 @@ public class TestSettings
                       ?? Environment.GetEnvironmentVariable("TEST_ENV")
                       ?? DefaultEnvironment;
 
-            return Environments.TryGetValue(env, out var url)
-                ? url
+            return Environments.TryGetValue(env, out var urls)
+                ? urls
                 : throw new ArgumentException(
                     $"Unknown environment '{env}'. Valid values: {string.Join(", ", Environments.Keys)}");
         }

@@ -1,16 +1,17 @@
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
-using Swag_Labs.Config;
+using TestAutomation.Config;
 
-namespace Swag_Labs.Base;
+namespace TestAutomation.UI.Base;
 
+[Category("UI")]
 public class BaseTest : PageTest
 {
     protected static TestSettings Settings => TestSettings.Current;
 
     public override BrowserNewContextOptions ContextOptions() => new()
     {
-        BaseURL = Settings.BaseUrl
+        BaseURL = Settings.UiBaseUrl
     };
 
     [SetUp]
